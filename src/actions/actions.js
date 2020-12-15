@@ -597,6 +597,7 @@ JSON: { "in": [ "authenticated", { "var": "data.roles" } ] }`;
   // Return a list of available actions.
   router.get('/form/:formId/actions', (req, res, next) => {
     const result = [];
+    console.log("LIST ACTIONS");
 
     // Add an action to the results array.
     function addAction(action) {
