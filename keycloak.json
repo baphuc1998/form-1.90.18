@@ -1,0 +1,11 @@
+{
+  "realm": "digo",
+  "auth-server-url": "https://digo-oidc.vnptigate.vn/auth/",
+  "ssl-required": "none",
+  "resource": "mobile-citizens",
+  "client-id": "test",
+  "credentials": {
+    "secret": "21ed14ae-ab44-46b1-8cae-5dc84c844094"
+  },
+  "confidential-port": 0
+}

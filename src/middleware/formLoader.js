@@ -10,6 +10,7 @@ const _ = require('lodash');
  * @returns {*}
  */
 module.exports = function(router) {
+  console.log("FORM 05");
   const hook = require('../util/hook')(router.formio);
   return function formLoader(req, res, next) {
     if (

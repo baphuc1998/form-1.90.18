@@ -50,6 +50,7 @@ module.exports = function(router) {
     /* eslint-enable no-useless-escape */
 
     // Now load the form by alias.
+    console.log("alias: ",alias);
     router.formio.cache.loadFormByAlias(req, alias, function(error, form) {
       if (error) {
         debug(`Error: ${error}`);

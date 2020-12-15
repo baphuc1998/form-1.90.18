@@ -14,6 +14,7 @@ const debug = {
 };
 
 module.exports = function(router) {
+  console.log("Cache Form 01");
   const hook = require('../util/hook')(router.formio);
   const util = router.formio.util;
 
@@ -65,6 +66,7 @@ module.exports = function(router) {
      * @param cb {function}
      */
     loadForm(req, type, id, cb) {
+      console.log("GET FORM");
       const cache = this.cache(req);
       if (cache.forms[id]) {
         debug.loadForm(`Cache hit: ${id}`);
@@ -114,6 +116,7 @@ module.exports = function(router) {
      * @param cb
      */
     loadForms(req, ids, cb) {
+      console.log("Cache Form 03");
       if (!ids || !ids.length) {
         // Shortcut if no ids are provided.
         return cb(null, []);
@@ -138,6 +141,7 @@ module.exports = function(router) {
     },
 
     loadFormRevisions(req, revs, cb) {
+      console.log("Cache Form 04");
       if (!revs || !revs.length || !router.formio.resources.formrevision) {
         debug.loadSubForms(`Form revisions not used.`);
         return cb();
@@ -407,6 +411,7 @@ module.exports = function(router) {
      * @returns {*}
      */
     loadAllForms(form, req, next, depth, forms) {
+      console.log("LIST FORMs");
       depth = depth || 0;
       forms = forms || {};
       debug.loadSubForms(`Loading subforms for ${form._id}`);
@@ -477,6 +482,7 @@ module.exports = function(router) {
     },
 
     loadSubForms(form, req, next) {
+      console.log("Load Sub FORMs");
       const forms = {};
       this.loadAllForms(form, req, (err) => {
         if (err) {

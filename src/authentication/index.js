@@ -308,6 +308,7 @@ module.exports = function(router) {
    */
   const currentUser = function(req, res, next) {
     if (!res.token || !req.token) {
+      console.log("res.sendStatus(401)");
       return res.sendStatus(401);
     }
 

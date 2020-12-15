@@ -619,6 +619,7 @@ module.exports = function(router) {
 
       // If someone else before this sent the status, then go to the next middleware.
       if (req.noResponse) {
+        console.log("req.noResponse");
         res.status(401);
         return next();
       }

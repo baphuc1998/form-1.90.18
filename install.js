@@ -163,22 +163,23 @@ module.exports = function(formio, items, done) {
       if (process.env.ROOT_EMAIL) {
         done();
       }
-      prompt.get([
-        {
-          name: 'install',
-          description: 'Are you sure you wish to install? (y/N)',
-          required: true
-        }
-      ], function(err, results) {
-        if (err) {
-          return done(err);
-        }
-        if (results.install.toLowerCase() !== 'y') {
-          return done('Installation canceled.');
-        }
+      return done('Installation canceled.');
+      // prompt.get([
+      //   {
+      //     name: 'install',
+      //     description: 'Are you sure you wish to install? (y/N)',
+      //     required: false
+      //   }
+      // ], function(err, results) {
+      //   if (err) {
+      //     return done(err);
+      //   }
+      //   if (results.install.toLowerCase() !== 'y') {
+      //     return done('Installation canceled.');
+      //   }
 
-        done();
-      });
+      //   done();
+      // });
     },
 
     // Allow them to select the application.

@@ -21,6 +21,7 @@ module.exports = function(router) {
     }
 
     if (!req.token || !req.token.user) {
+      console.log("Check Token");
       return res.sendStatus(401);
     }
 

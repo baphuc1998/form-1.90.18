@@ -84,6 +84,7 @@ module.exports = function(router) {
     }
 
     const token = util.getRequestValue(req, 'x-jwt-token');
+    console.log("x-jwt-token:",token);
     const noToken = function() {
       router.formio.log('Token', req, 'No token found');
       // Try the request with no tokens.
@@ -121,8 +122,8 @@ module.exports = function(router) {
 
         // If the token has expired, send a 440 error (Login Timeout)
         if (err && (err.name === 'JsonWebTokenError')) {
-          router.formio.log('Token', req, 'Bad Token');
-          return res.status(400).send('Bad Token');
+          router.formio.log('Token', req, 'Bad Token--');
+          return res.status(400).send('Bad Token--');
         }
         else if (err && (err.name === 'TokenExpiredError')) {
           router.formio.log('Token', req, 'Token Expired');

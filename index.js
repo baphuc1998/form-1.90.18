@@ -136,34 +136,42 @@ module.exports = function(config) {
       router.formio.auth = require('./src/authentication/index')(router);
 
       // Perform token mutation before all requests.
+      // #Comment
       if (!router.formio.hook.invoke('init', 'token', router.formio)) {
-        router.use(router.formio.middleware.tokenHandler);
+        router.use(router.formio.middleware.keycloakHandle);
       }
 
-      // The get token handler
-      if (!router.formio.hook.invoke('init', 'getTempToken', router.formio)) {
-        router.get('/token', router.formio.auth.tempToken);
-      }
+      // Perform token mutation before all requests.
+      // #Comment
+      // if (!router.formio.hook.invoke('init', 'token', router.formio)) {
+      //   router.use(router.formio.middleware.tokenHandler);
+      // }
+
+      // // The get token handler
+      // if (!router.formio.hook.invoke('init', 'getTempToken', router.formio)) {
+      //   router.get('/token', router.formio.auth.tempToken);
+      // }
 
       // The current user handler.
-      if (!router.formio.hook.invoke('init', 'logout', router.formio)) {
-        router.get('/logout', router.formio.auth.logout);
-      }
+      // if (!router.formio.hook.invoke('init', 'logout', router.formio)) {
+      //   router.get('/logout', router.formio.auth.logout);
+      // }
 
-      // The current user handler.
-      if (!router.formio.hook.invoke('init', 'current', router.formio)) {
-        router.get('/current', router.formio.hook.alter('currentUser', [router.formio.auth.currentUser]));
-      }
+      // // The current user handler.
+      // if (!router.formio.hook.invoke('init', 'current', router.formio)) {
+      //   router.get('/current', router.formio.hook.alter('currentUser', [router.formio.auth.currentUser]));
+      // }
 
       // The access handler.
       if (!router.formio.hook.invoke('init', 'access', router.formio)) {
         router.get('/access', router.formio.middleware.accessHandler);
       }
+      router.get('/access', router.formio.middleware.accessHandler);
 
-      // Authorize all urls based on roles and permissions.
-      if (!router.formio.hook.invoke('init', 'perms', router.formio)) {
-        router.use(router.formio.middleware.permissionHandler);
-      }
+      // // Authorize all urls based on roles and permissions.
+      // if (!router.formio.hook.invoke('init', 'perms', router.formio)) {
+      //   router.use(router.formio.middleware.permissionHandler);
+      // }
 
       let mongoUrl = config.mongo;
       let mongoConfig = config.mongoConfig ? JSON.parse(config.mongoConfig) : {};
@@ -227,6 +235,8 @@ module.exports = function(config) {
           AccessSchema: require('./src/models/AccessSchema')(router.formio)
         };
 
+        console.log("Index.js");
+
         // Get the models for our project.
         const models = require('./src/models/models')(router);
 
@@ -236,14 +246,17 @@ module.exports = function(config) {
         // Load the Models.
         router.formio.models = models.models;
 
-        // Load the Resources.
+        // Load the Resources. Add common router to the router like form, role, submission.
         router.formio.resources = require('./src/resources/resources')(router);
+        // console.log("ROUTER FORM: ",router.formio.resources);
+        // console.log("ROUTER RESOURCEJS: ",router.resourcejs['/form/:formId']);
 
         // Load the request cache
         router.formio.cache = require('./src/cache/cache')(router);
 
         // Return the form components.
         router.get('/form/:formId/components', function(req, res, next) {
+          console.log("/form/:formId/components");
           router.formio.resources.form.model.findOne({_id: req.params.formId}, function(err, form) {
             if (err) {
               return next(err);

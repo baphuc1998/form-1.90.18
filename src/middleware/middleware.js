@@ -33,6 +33,7 @@ module.exports = function(router) {
     submissionHandler: require('./submissionHandler')(router),
     submissionResourceAccessFilter: require('./submissionResourceAccessFilter')(router),
     tokenHandler: require('./tokenHandler')(router),
+    keycloakHandle: require('./keycloakHandle')(router),
     restrictRequestTypes: require('./restrictRequestTypes')(router),
     filterIndex: require('./filterIndex')(router),
     mongodbConnectionState: require('./mongodbConnectionState')(router),
