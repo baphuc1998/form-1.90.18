@@ -71,7 +71,6 @@ module.exports = function(options) {
     }));
   }
   // Mount the client application.
-  console.log("server 74");
   app.use('/', express.static(path.join(__dirname, '/client/dist')));
 
   var memoryStore = new session.MemoryStore();

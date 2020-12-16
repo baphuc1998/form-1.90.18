@@ -16,6 +16,7 @@ module.exports = (router) => (formio) => function(req, res, next) {
     3: 'disconnecting',
   };
 
+  console.log("Debug72");
   if (!formio.mongoose || !formio.mongoose.connection) {
     req.mongodbConnectionState = 'connection doesn\'t exist';
     return next();

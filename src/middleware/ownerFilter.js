@@ -9,8 +9,9 @@ const util = require('../util/util');
  * @returns {Function}
  */
 module.exports = function(router) {
-  console.log("test7");
+  console.log("Debug71");
   return function ownerFilter(req, res, next) {
+    return next();
     // Convert any owner queries to ObjectId's.
     if (req.query && req.query.owner) {
       req.query.owner = util.ObjectId(req.query.owner);
@@ -22,7 +23,7 @@ module.exports = function(router) {
     }
 
     if (!req.token || !req.token.user) {
-      console.log("Check Token");
+      console.log("Check Token4");
       return res.sendStatus(401);
     }
 

@@ -7,8 +7,6 @@ const Validator = require('../resources/Validator');
 
 module.exports = (router, resourceName, resourceId) => {
 
-  console.log("subhand");
-
   const hook = require('../util/hook')(router.formio);
   const fActions = require('../actions/fields')(router);
   const pActions = require('../actions/properties')(router);
@@ -48,8 +46,8 @@ module.exports = (router, resourceName, resourceId) => {
      * @param done
      */
 
-     console.log("Submission1");
     function loadCurrentForm(req, done) {
+      console.log("Debug53");
       router.formio.cache.loadCurrentForm(req, (err, form) => {
         if (err) {
           return done(err);
@@ -75,6 +73,7 @@ module.exports = (router, resourceName, resourceId) => {
      * @param done
      */
     function initializeSubmission(req, done) {
+      console.log("Debug53");
       const isGet = (req.method === 'GET');
 
       // If this is a get method, then filter the model query.
@@ -147,6 +146,7 @@ module.exports = (router, resourceName, resourceId) => {
      * @param done
      */
     function initializeActions(req, res, done) {
+      console.log("Debug53");
       // If they wish to disable actions, then just skip.
       if (req.query.hasOwnProperty('dryrun') && req.query.dryrun) {
         return done();
@@ -208,6 +208,7 @@ module.exports = (router, resourceName, resourceId) => {
      * @param done
      */
     function executeActions(handler) {
+      console.log("Debug54");
       return (req, res, done) => {
         // If they wish to disable actions, then just skip.
         if (req.query.hasOwnProperty('dryrun') && req.query.dryrun) {
@@ -228,6 +229,7 @@ module.exports = (router, resourceName, resourceId) => {
 
     // This should probably be moved to utils.
     function eachValue(components, data, fn, context, path = '') {
+      console.log("Debug55");
       const promises = [];
       if (components) {
         components.forEach((component) => {
@@ -312,6 +314,7 @@ module.exports = (router, resourceName, resourceId) => {
       const promises = [];
 
       eachValue(req.currentForm.components, req.body.data, (context) => {
+        console.log("Debug56");
         const {component, data, handler, action, path} = context;
 
         // Remove not persistent data
@@ -371,7 +374,9 @@ module.exports = (router, resourceName, resourceId) => {
     }
 
     function alterSubmission(req, res, done) {
+      console.log("Debug57");
       hook.alter('submission', req, res, () => {
+        console.log("Debug57");
         if (
           (req.handlerName === 'afterPost') ||
           (req.handlerName === 'afterPut')

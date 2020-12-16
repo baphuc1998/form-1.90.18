@@ -6,6 +6,7 @@ const _ = require('lodash');
 module.exports = function(router) {
   const hook = require('../util/hook')(router.formio);
   return function paramsHandler(req, res, next) {
+    console.log("Debug70");
     // Split the request url into its corresponding parameters.
     const params = _.assign(util.getUrlParams(req.url), util.getUrlParams(req.baseUrl));
 
@@ -13,7 +14,7 @@ module.exports = function(router) {
     const formId = params.hasOwnProperty('form') && params.form !== 'undefined'
       ? params.form
       : null;
-
+    
     // Get the formId from the request url.
     let subId = params.hasOwnProperty('submission') && params.form !== 'undefined'
       ? params.submission
@@ -34,7 +35,6 @@ module.exports = function(router) {
     req.subId = subId;
     req.roleId = roleId;
     hook.alter('requestParams', req, params);
-
     next();
   };
 };

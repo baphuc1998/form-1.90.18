@@ -14,6 +14,7 @@ module.exports = (router) => {
   const prune = require('../util/delete')(router);
 
   return (req, res, next) => {
+    console.log("Debug77");
     if (req.method !== 'DELETE' || !req.formId) {
       return next();
     }

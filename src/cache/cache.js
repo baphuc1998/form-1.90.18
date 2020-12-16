@@ -68,7 +68,6 @@ module.exports = function(router) {
       console.log("GET FORM");
       const cache = this.cache(req);
       if (cache.forms[id]) {
-        console.log("test01");
         debug.loadForm(`Cache hit: ${id}`);
         return cb(null, cache.forms[id]);
       }
@@ -115,6 +114,7 @@ module.exports = function(router) {
      * @param ids
      * @param cb
      */
+    
     loadForms(req, ids, cb) {
       console.log("test03");
       if (!ids || !ids.length) {
@@ -122,7 +122,6 @@ module.exports = function(router) {
         return cb(null, []);
       }
 
-      
       router.formio.resources.form.model.find(
         hook.alter('formQuery', {
           _id: {$in: ids.map((formId) => util.idToBson(formId))},
@@ -136,17 +135,16 @@ module.exports = function(router) {
         if (!result || !result.length) {
           return cb(null, []);
         }
-
         cb(null, result);
       });
     },
 
     loadFormRevisions(req, revs, cb) {
+      console.log("test05");
       if (!revs || !revs.length || !router.formio.resources.formrevision) {
         debug.loadSubForms(`Form revisions not used.`);
         return cb();
       }
-
       const formRevs = {};
       async.each(revs, (rev, next) => {
         const formRevision = parseInt(rev.revision || rev.formRevision);
@@ -168,7 +166,6 @@ module.exports = function(router) {
             );
             return next();
           }
-
           debug.loadSubForms(`Loaded revision for form ${rev.form} revision ${formRevision}`);
           formRevs[rev.form.toString()] = result;
           next();
@@ -282,6 +279,7 @@ module.exports = function(router) {
      * @param cb
      */
     loadSubmissions(req, subs, cb) {
+      console.log("test07");
       if (!subs || !subs.length) {
         // Shortcut if no subs are provided.
         return cb(null, []);
@@ -313,6 +311,7 @@ module.exports = function(router) {
      * @param cb
      */
     loadCurrentSubmission(req, cb) {
+      console.log("test08");
       if (!req.params.submissionId) {
         return cb(new Error('No submission found.'));
       }
@@ -333,6 +332,7 @@ module.exports = function(router) {
      *   The callback function to run when complete.
      */
     loadFormByName(req, name, cb) {
+      console.log("debug10");
       const cache = this.cache(req);
       if (cache.names[name]) {
         debug.loadFormByName(`Cache hit: ${name}`);
@@ -370,6 +370,7 @@ module.exports = function(router) {
      * Load a resource by alias
      */
     loadFormByAlias(req, alias, cb) {
+      console.log("debug11");
       const cache = this.cache(req);
       if (cache.aliases[alias]) {
         debug.loadFormByAlias(`Cache hit: ${alias}`);
@@ -413,7 +414,7 @@ module.exports = function(router) {
      * @returns {*}
      */
     loadAllForms(form, req, next, depth, forms) {
-      console.log("LIST FORMs");
+      console.log("debug12");
       depth = depth || 0;
       forms = forms || {};
       debug.loadSubForms(`Loading subforms for ${form._id}`);
@@ -484,7 +485,7 @@ module.exports = function(router) {
     },
 
     loadSubForms(form, req, next) {
-      console.log("Load Sub FORMs");
+      console.log("debug13");
       const forms = {};
       this.loadAllForms(form, req, (err) => {
         if (err) {
@@ -506,6 +507,7 @@ module.exports = function(router) {
      * @return {*}
      */
     loadSubSubmissions(form, submission, req, next, depth) {
+      console.log("debug14");
       depth = depth || 0;
 
       // Only allow 5 deep.
@@ -526,6 +528,7 @@ module.exports = function(router) {
 
       // Load all the submissions within this submission.
       this.loadSubmissions(req, Object.keys(subs), (err, submissions) => {
+        console.log("debug15");
         if (err || !submissions || !submissions.length) {
           return next();
         }

@@ -91,7 +91,7 @@ module.exports = function(router) {
 
       req.countQuery = req.countQuery || req.model || this.model;
       req.countQuery = req.countQuery.find(query);
-
+      console.log("Debug52");
       next();
     }.bind(this));
   };

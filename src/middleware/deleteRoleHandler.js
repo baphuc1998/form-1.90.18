@@ -16,6 +16,7 @@ module.exports = (router) => {
   const prune = require('../util/delete')(router);
 
   return (req, res, next) => {
+    console.log("Debug76");
     // Only stop delete requests!
     if (req.method !== 'DELETE') {
       return next();

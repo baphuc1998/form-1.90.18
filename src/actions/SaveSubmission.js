@@ -45,6 +45,7 @@ module.exports = function(router) {
     }
 
     static settingsForm(req, res, next) {
+      console.log("Debug30");
       next(null, [
         {
           type: 'resourcefields',
@@ -69,7 +70,7 @@ module.exports = function(router) {
      * @returns {*}
      */
     resolve(handler, method, req, res, next) {
-      console.log("test8");
+      console.log("Debug32");
       // Return if this is not a PUT or POST.
       if (req.skipSave || !req.body || (req.method !== 'POST' && req.method !== 'PUT' && req.method !== 'PATCH')) {
         return next();

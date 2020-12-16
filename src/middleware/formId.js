@@ -6,7 +6,7 @@
  * @returns {Function}
  */
 module.exports = () => (req, res, next) => {
-  console.log("FORM 04");
+  console.log("debug05");
   if (!req.formId && req.params.formId) {
     req.formId = req.params.formId;
   }

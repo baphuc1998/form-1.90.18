@@ -19,6 +19,7 @@ const moment = require('moment');
  * @returns {{actions: {}, register: Function, search: Function, execute: Function}}
  */
 module.exports = (router) => {
+  console.log("Debug20");
   const hook = require('../util/hook')(router.formio);
 
   /**
@@ -54,6 +55,7 @@ module.exports = (router) => {
      * @returns {*}
      */
     loadActions(req, res, next) {
+      console.log("Debug21");
       if (!req.actions) {
         req.actions = {};
       }
@@ -106,6 +108,7 @@ module.exports = (router) => {
      * @param next
      */
     search(handler, method, req, res, next) {
+      console.log("Debug21");
       if (!req.formId) {
         return next(null, []);
       }
@@ -137,6 +140,7 @@ module.exports = (router) => {
      * @param next
      */
     initialize(method, req, res, next) {
+      console.log("Debug22");
       this.search(null, method, req, res, (err, actions) => {
         if (err) {
           return next(err);
@@ -164,6 +168,7 @@ module.exports = (router) => {
      * @param next
      */
     execute(handler, method, req, res, next) {
+      console.log("Debug23");
       // Find the available actions.
       this.search(handler, method, req, res, (err, actions) => {
         if (err) {
@@ -254,6 +259,7 @@ module.exports = (router) => {
     },
 
     async shouldExecute(action, req) {
+      console.log("Debug24");
       const condition = action.condition;
       if (!condition) {
         return true;
@@ -332,6 +338,7 @@ module.exports = (router) => {
    * @param action
    */
   function getSettingsForm(action, req, cb) {
+    console.log("Debug25");
     const mainSettings = {
       components: []
     };
@@ -746,6 +753,7 @@ JSON: { "in": [ "authenticated", { "var": "data.roles" } ] }`;
           // Perform an extra permission check for action GET requests.
           req.method = 'PUT';
           req.permissionsChecked = false;
+          console.log("Debug90");
           router.formio.middleware.permissionHandler(req, res, () => {
             req.method = 'GET';
             next();

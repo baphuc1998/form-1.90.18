@@ -11,6 +11,7 @@ const debug = require('debug')('formio:middleware:deleteSubmissionHandler');
  * @returns {Function}
  */
 module.exports = (router) => {
+  console.log("debug05");
   const prune = require('../util/delete')(router);
 
   return (req, res, next) => {

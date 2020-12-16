@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = (router) => (req, res, next) => {
+  console.log("Debug73");
   if (!['PUT', 'PATCH', 'DELETE'].includes(req.method)) {
     return next();
   }

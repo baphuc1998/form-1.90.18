@@ -18,7 +18,7 @@ const _ = require('lodash');
 module.exports = function(router) {
   return function bootstrapNewRoleAccess(req, res, next) {
     const hook = require('../util/hook')(router.formio);
-
+    console.log("Debug82");
     // Only bootstrap existing form access on Role creation.
     if (req.method !== 'POST' || !res || !res.hasOwnProperty('resource') || !res.resource.item) {
       return next();
