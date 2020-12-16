@@ -68,21 +68,21 @@ module.exports = function(router) {
       console.log("GET FORM");
       const cache = this.cache(req);
       if (cache.forms[id]) {
+        console.log("test01");
         debug.loadForm(`Cache hit: ${id}`);
         return cb(null, cache.forms[id]);
       }
 
       debug.loadForm(`${typeof id}: ${id}`);
       id = util.idToBson(id);
+      
       if (id === false) {
         return cb('Invalid form _id given.');
       }
-
       const query = {_id: id, deleted: {$eq: null}};
       if (type) {
         query.type = type;
       }
-
       router.formio.resources.form.model.findOne(
         hook.alter('formQuery', query, req)
       ).lean().exec((err, result) => {
@@ -105,6 +105,7 @@ module.exports = function(router) {
           cb(null, result);
         });
       });
+      console.log("test05");
     },
 
     /**
@@ -115,11 +116,13 @@ module.exports = function(router) {
      * @param cb
      */
     loadForms(req, ids, cb) {
+      console.log("test03");
       if (!ids || !ids.length) {
         // Shortcut if no ids are provided.
         return cb(null, []);
       }
 
+      
       router.formio.resources.form.model.find(
         hook.alter('formQuery', {
           _id: {$in: ids.map((formId) => util.idToBson(formId))},
@@ -182,6 +185,7 @@ module.exports = function(router) {
     },
 
     getCurrentFormId(req) {
+      console.log("Test06");
       let formId = req.formId;
       if (req.params.formId) {
         formId = req.params.formId;
@@ -228,6 +232,7 @@ module.exports = function(router) {
      *   The callback function to invoke after loading the submission.
      */
     loadSubmission(req, formId, subId, cb) {
+      console.log("Test07");
       const cache = this.cache(req);
       if (cache.submissions[subId]) {
         debug.loadSubmission(`Cache hit: ${subId}`);

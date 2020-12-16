@@ -27,21 +27,21 @@ module.exports = function(options) {
     input: require('fs').createReadStream('logo.txt')
   });
 
-  rl.on('line', function(line) {
-    util.log(
-      line.substring(0,4) +
-      line.substring(4, 30).cyan.bold +
-      line.substring(30, 33) +
-      line.substring(33, 42).green.bold +
-      line.substring(42)
-    );
-  });
+  // rl.on('line', function(line) {
+  //   util.log(
+  //     line.substring(0,4) +
+  //     line.substring(4, 30).cyan.bold +
+  //     line.substring(30, 33) +
+  //     line.substring(33, 42).green.bold +
+  //     line.substring(42)
+  //   );
+  // });
 
-  rl.on('close', function() {
-    // Print the welcome screen.
-    util.log('');
-    util.log(fs.readFileSync('welcome.txt').toString().green);
-  });
+  // rl.on('close', function() {
+  //   // Print the welcome screen.
+  //   util.log('');
+  //   util.log(fs.readFileSync('welcome.txt').toString().green);
+  // });
 
   // Use the express application.
   const app = options.app || express();
@@ -71,13 +71,19 @@ module.exports = function(options) {
     }));
   }
   // Mount the client application.
+  console.log("server 74");
   app.use('/', express.static(path.join(__dirname, '/client/dist')));
 
   var memoryStore = new session.MemoryStore();
+  app.use(session({
+    secret: 'some secret',
+    resave: false,
+    saveUninitialized: true,
+    store: memoryStore
+  }));
   var keycloak = new Keycloak({
     store: memoryStore
   });
-
   app.use(keycloak.middleware({
     logout: '/logout',
     admin: '/'

@@ -15,6 +15,7 @@ module.exports = function(router) {
   const logOutput = router.formio.log || debug;
   const log = (...args) => logOutput(LOG_EVENT, ...args);
 
+  console.log("test7");
   // Execute a pre-save method for the SaveSubmission action.
   Action.schema.pre('save', function(next) {
     if (this.name === 'save') {
@@ -68,6 +69,7 @@ module.exports = function(router) {
      * @returns {*}
      */
     resolve(handler, method, req, res, next) {
+      console.log("test8");
       // Return if this is not a PUT or POST.
       if (req.skipSave || !req.body || (req.method !== 'POST' && req.method !== 'PUT' && req.method !== 'PATCH')) {
         return next();

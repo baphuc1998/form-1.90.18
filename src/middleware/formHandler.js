@@ -9,7 +9,7 @@
 module.exports = function(router) {
   const hook = require('../util/hook')(router.formio);
   const formio = hook.alter('formio', router.formio);
-
+  console.log("test20");
   return function formHandler(req, res, next) {
     if (['POST', 'PUT'].indexOf(req.method) !== -1 && req.body.path) {
       const fragments = req.body.path.split('/');

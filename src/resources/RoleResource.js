@@ -4,7 +4,7 @@ const Resource = require('resourcejs');
 module.exports = function(router) {
   const hook = require('../util/hook')(router.formio);
   const handlers = {};
-
+  console.log("test31");
   handlers.before = [
     (req, res, next) => {
       // Disable Patch for roles for now.

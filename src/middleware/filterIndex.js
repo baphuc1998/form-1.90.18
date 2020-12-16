@@ -9,6 +9,7 @@
  * @returns {Function}
  */
 module.exports = router => settings => (req, res, next) => {
+  console.log("test index");
   if (
     req.method !== 'GET' ||
     !req.filterIndex ||

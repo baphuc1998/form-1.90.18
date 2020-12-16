@@ -46,6 +46,7 @@ module.exports = function(router) {
   /* eslint-disable new-cap */
   // If the last argument is a function, hook.alter assumes it is a callback function.
   const FormResource = hook.alter('FormResource', Resource, null);
+  console.log("test32");
   return FormResource(router, '', 'form', router.formio.mongoose.model('form'))
     .rest(hook.alter('formRoutes', {
       before: [

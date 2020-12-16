@@ -13,6 +13,7 @@ const _ = require('lodash');
  * @returns {Function}
  */
 module.exports = (router) => (settings) => function(req, res, next) {
+  console.log("test4");
   if (!_.isObject(settings) || !settings.field || !_.isBoolean(settings.isNull)) {
     return next();
   }

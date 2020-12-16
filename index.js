@@ -108,7 +108,6 @@ module.exports = function(config) {
         limit: '16mb'
       }));
       router.use(methodOverride('X-HTTP-Method-Override'));
-
       // Error handler for malformed JSON
       router.use(function(err, req, res, next) {
         if (err instanceof SyntaxError) {

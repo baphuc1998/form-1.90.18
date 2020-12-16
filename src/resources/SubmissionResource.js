@@ -10,6 +10,7 @@ module.exports = (router) => {
   const hiddenFields = ['deleted', '__v', 'machineName'];
 
   // Manually update the handlers, to add additional middleware.
+  console.log("test30");
   handlers.beforePost = [
     router.formio.middleware.filterIdCreate,
     router.formio.middleware.permissionHandler,

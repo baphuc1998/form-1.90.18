@@ -6,6 +6,9 @@ const util = require('../util/util');
 const Validator = require('../resources/Validator');
 
 module.exports = (router, resourceName, resourceId) => {
+
+  console.log("subhand");
+
   const hook = require('../util/hook')(router.formio);
   const fActions = require('../actions/fields')(router);
   const pActions = require('../actions/properties')(router);
@@ -44,6 +47,8 @@ module.exports = (router, resourceName, resourceId) => {
      * @param req
      * @param done
      */
+
+     console.log("Submission1");
     function loadCurrentForm(req, done) {
       router.formio.cache.loadCurrentForm(req, (err, form) => {
         if (err) {
@@ -94,6 +99,7 @@ module.exports = (router, resourceName, resourceId) => {
         req.body = _.pick(req.body, properties);
 
         // Ensure there is always data provided on POST.
+        console.log("POST sub");
         if (req.method === 'POST' && !req.body.data) {
           req.body.data = {};
         }
@@ -158,6 +164,7 @@ module.exports = (router, resourceName, resourceId) => {
      */
     function validateSubmission(req, res, done) {
       // No need to validate on GET requests.
+      console.log("POST validate");
       if (!(['POST', 'PUT', 'PATCH'].includes(req.method) && req.body && !req.noValidate)) {
         return done();
       }

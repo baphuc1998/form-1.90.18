@@ -9,6 +9,7 @@ const util = require('../util/util');
  * @returns {Function}
  */
 module.exports = function(router) {
+  console.log("test7");
   return function ownerFilter(req, res, next) {
     // Convert any owner queries to ObjectId's.
     if (req.query && req.query.owner) {

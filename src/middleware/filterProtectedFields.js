@@ -10,6 +10,7 @@ const util = require('../util/util');
  * @returns {Function}
  */
 module.exports = function(router) {
+  console.log("test5");
   return function(action, getForm) {
     return function(req, res, next) {
       if (!res || !res.resource || !res.resource.item) {
