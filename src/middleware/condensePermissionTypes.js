@@ -15,7 +15,6 @@ const BSON = new RegExp('^[0-9a-fA-F]{24}$');
  */
 module.exports = function(router) {
   return function condensePermissionTypes(req, res, next) {
-    console.log("Debug80");
     // Only condense permission types on PUT/POST.
     if (!(req.method === 'POST' || req.method === 'PUT')) {
       return next();

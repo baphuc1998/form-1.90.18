@@ -11,7 +11,6 @@ const _ = require('lodash');
  * @returns {Function}
  */
 module.exports = (router) => (settings) => (req, res, next) => {
-  console.log("Debug75");
   if (!Array.isArray(settings) || !res || !res.resource || !res.resource.item) {
     return next();
   }

@@ -140,7 +140,6 @@ module.exports = function(db, config, tools, done) {
         return next(err);
       }
 
-      console.log(forms[0])
       debug.getFormsWithUniqueComponents(forms.length);
       return next(null, forms);
     });

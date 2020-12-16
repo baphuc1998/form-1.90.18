@@ -7,7 +7,6 @@ const util = require('../util/util');
  * Go through each field and if Submission Resource Access is defined on it, add it to the submissionAccess array.
  */
 module.exports = (router) => {
-  console.log("debug02");
   const grabIds = (input, roles = []) => {
     if (!input) {
       return [];

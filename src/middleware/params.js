@@ -6,7 +6,6 @@ const _ = require('lodash');
 module.exports = function(router) {
   const hook = require('../util/hook')(router.formio);
   return function paramsHandler(req, res, next) {
-    console.log("Debug70");
     // Split the request url into its corresponding parameters.
     const params = _.assign(util.getUrlParams(req.url), util.getUrlParams(req.baseUrl));
 

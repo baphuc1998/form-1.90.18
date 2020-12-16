@@ -13,7 +13,6 @@ module.exports = function(router) {
   const hook = require('../util/hook')(router.formio);
   return function(settings) {
     return function sortMongooseQuery(req, res, next) {
-      console.log("Debug62");
       // Only filter on non empty objects.
       if (typeof settings !== 'object' || settings === {}) {
         return next();

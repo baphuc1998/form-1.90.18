@@ -280,7 +280,6 @@ module.exports = function(router) {
         _.get(req.submission.data, this.settings.username),
         _.get(req.submission.data, this.settings.password),
         function(err, response) {
-          console.log("Check Token1");
           if (err && !response) {
             log(req, ecode.auth.EAUTH, err);
             return res.status(401).send(err);
@@ -288,7 +287,6 @@ module.exports = function(router) {
 
           // Check the amount of attempts made by this user.
           this.checkAttempts(err, req, response.user, function(error) {
-            console.log("Check Token2");
             if (error) {
               log(req, ecode.auth.EAUTH, error);
               return res.status(401).send(error);
@@ -300,7 +298,6 @@ module.exports = function(router) {
             res.token = response.token.token;
             req['x-jwt-token'] = response.token.token;
             router.formio.auth.currentUser(req, res, function(err) {
-              console.log("Check Token3");
               if (err) {
                 log(req, ecode.auth.EAUTH, err);
                 return res.status(401).send(err.message);

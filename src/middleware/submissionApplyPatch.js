@@ -4,7 +4,6 @@ const _ = require('lodash');
 
 module.exports = router => (req, res, next) => {
   if (req.method !== 'PATCH') {
-    console.log("Debug61");
     return next();
   }
   const childReq = router.formio.util.createSubRequest(req);
@@ -22,7 +21,6 @@ module.exports = router => (req, res, next) => {
   });
 
   router.resourcejs[req.route.path]['get'](childReq, childRes, function(err) {
-    console.log("Debug60");
     if (err) {
       return res.status(400).send(err);
     }

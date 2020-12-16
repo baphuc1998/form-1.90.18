@@ -8,7 +8,6 @@ const debug = require('debug')('formio:alias');
  * Middleware to resolve a form alias into its components.
  */
 module.exports = function(router) {
-  console.log("debug03");
   // Setup the reserved forms regex.
   if (!router.formio.config.reservedForms || !router.formio.config.reservedForms.length) {
     /* eslint-disable max-len */
@@ -51,7 +50,6 @@ module.exports = function(router) {
     /* eslint-enable no-useless-escape */
 
     // Now load the form by alias.
-    console.log("alias: ",alias);
     router.formio.cache.loadFormByAlias(req, alias, function(error, form) {
       if (error) {
         debug(`Error: ${error}`);

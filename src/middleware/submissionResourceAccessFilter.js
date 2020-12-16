@@ -9,8 +9,6 @@ module.exports = function(router) {
     const util = router.formio.util;
     const hook = router.formio.hook;
 
-    console.log("submissionResourceAccessFilter");
-
     // Skip this filter, if request is from an administrator.
     if (req.isAdmin) {
       debug('Skipping, request is from an administrator.');
@@ -34,7 +32,6 @@ module.exports = function(router) {
 
     // Cant determine submission resource access if no roles are provided.
     const userRoles = _.get(req, 'user.roles', []);
-    console.log("userRoles.length.");
     if (!userRoles.length) {
       return res.sendStatus(401);
     }
@@ -91,7 +88,6 @@ module.exports = function(router) {
 
       req.countQuery = req.countQuery || req.model || this.model;
       req.countQuery = req.countQuery.find(query);
-      console.log("Debug52");
       next();
     }.bind(this));
   };

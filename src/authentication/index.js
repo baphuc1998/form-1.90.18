@@ -29,7 +29,6 @@ module.exports = function(router) {
    *   The JWT from the given payload, or false if the jwt payload is still valid.
    */
   const getToken = function(tokenInfo) {
-    console.log("Debug40");
     // Clone to make sure we don't change original.
     const payload = Object.assign({}, tokenInfo);
     delete payload.iat;
@@ -47,7 +46,6 @@ module.exports = function(router) {
    * @return {boolean}
    */
   const isTokenAllowed = function(req, decoded) {
-    console.log("Debug41");
     if (!decoded.allow) {
       return true;
     }
@@ -100,7 +98,6 @@ module.exports = function(router) {
    * @param cb
    */
   const getTempToken = function(req, res, allow, expire, admin, cb) {
-    console.log("Debug42");
     let tempToken = {};
     if (!admin) {
       if (!req.token) {
@@ -207,7 +204,6 @@ module.exports = function(router) {
    *   The callback function to call after authentication.
    */
   const authenticate = function(req, forms, userField, passField, username, password, next) {
-    console.log("Debug43");
     // Make sure they have provided a username and password.
     if (!username) {
       return next('Missing username');
@@ -235,7 +231,6 @@ module.exports = function(router) {
     // Find the user object.
     const submissionModel = req.submissionModel || router.formio.resources.submission.model;
     submissionModel.findOne(hook.alter('submissionQuery', query, req)).lean().exec((err, user) => {
-      console.log("Debug44");
       if (err) {
         return next(err);
       }
@@ -312,9 +307,7 @@ module.exports = function(router) {
    * @param next
    */
   const currentUser = function(req, res, next) {
-    console.log("Debug45");
     if (!res.token || !req.token) {
-      console.log("res.sendStatus(401)");
       return res.sendStatus(401);
     }
 

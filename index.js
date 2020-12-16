@@ -247,15 +247,12 @@ module.exports = function(config) {
 
         // Load the Resources. Add common router to the router like form, role, submission.
         router.formio.resources = require('./src/resources/resources')(router);
-        // console.log("ROUTER FORM: ",router.formio.resources);
-        // console.log("ROUTER RESOURCEJS: ",router.resourcejs['/form/:formId']);
 
         // Load the request cache
         router.formio.cache = require('./src/cache/cache')(router);
 
         // Return the form components.
         router.get('/form/:formId/components', function(req, res, next) {
-          console.log("/form/:formId/components");
           router.formio.resources.form.model.findOne({_id: req.params.formId}, function(err, form) {
             if (err) {
               return next(err);

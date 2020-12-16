@@ -9,7 +9,6 @@
  * @param router
  */
 module.exports = function(router) {
-  console.log("debug01");
   const hook = require('../util/hook')(router.formio);
   const promisify = require('util').promisify;
   const _ = require('lodash');

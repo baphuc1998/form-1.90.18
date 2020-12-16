@@ -16,7 +16,6 @@ const debug = require('debug')('formio:middleware:bootstrapFormAccess');
  * @returns {*}
  */
 module.exports = function(router) {
-  console.log("debug04");
   const hook = require('../util/hook')(router.formio);
 
   return function bootstrapFormAccess(req, res, next) {

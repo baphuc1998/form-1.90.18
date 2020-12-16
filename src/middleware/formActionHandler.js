@@ -9,7 +9,6 @@
 module.exports = function(router) {
   return function(handler) {
     return function formActionHandler(req, res, next) {
-      console.log("Debug74");
       router.formio.actions.execute(handler, 'form', req, res, function(err) {
         if (err) {
           return next(err);

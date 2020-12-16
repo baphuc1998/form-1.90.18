@@ -8,7 +8,6 @@ const debug = require('debug')('formio:action:sql');
 const LOG_EVENT = 'SQL Action';
 
 module.exports = function(router) {
-  console.log("Debug34");
   const Action = router.formio.Action;
   const hook = require('../util/hook')(router.formio);
   const ecode = router.formio.util.errorCodes;
@@ -21,7 +20,6 @@ module.exports = function(router) {
    */
   class SQLAction extends Action {
     static info(req, res, next) {
-      console.log("Debug35");
       next(null, {
         name: 'sql',
         title: 'SQL Query',
@@ -35,7 +33,6 @@ module.exports = function(router) {
     }
 
     static settingsForm(req, res, next) {
-      console.log("Debug36");
       hook.settings(req, function(err, settings) {
         if (err) {
           log(req, ecode.app.ESETTINGSLOAD, err, '#settingsForm');
@@ -130,7 +127,6 @@ module.exports = function(router) {
      *   The callback function to execute upon completion.
      */
     resolve(handler, method, req, res, next) {
-      console.log("Debug37");
       // Store the current resource.
       const currentResource = res.resource;
 

@@ -54,7 +54,6 @@ module.exports = function(router) {
    * @param next
    */
   const userHandler = (req, res, decoded, token, user, next) => {
-    console.log("Debug51");
     hook.alter('user', user, function(err, user) {
       if (err) {
         return next();
@@ -78,7 +77,6 @@ module.exports = function(router) {
   };
 
   return function tokenHandler(req, res, next) {
-    console.log("Debug50");
     /* eslint-disable max-statements */
     // If someone else provided then skip.
     if (req.user && req.token && res.token) {
@@ -86,7 +84,6 @@ module.exports = function(router) {
     }
 
     const token = util.getRequestValue(req, 'x-jwt-token');
-    console.log("x-jwt-token:",token);
     const noToken = function() {
       router.formio.log('Token', req, 'No token found');
       // Try the request with no tokens.

@@ -10,7 +10,6 @@ const _ = require('lodash');
  */
 module.exports = function(router) {
   return function condenseSubmissionPermissionTypes(req, res, next) {
-    console.log("Debug79");
     // Only condense permission types on PUT/POST.
     if (!(req.method === 'POST' || req.method === 'PUT')) {
       return next();

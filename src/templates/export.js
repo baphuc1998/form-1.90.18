@@ -114,7 +114,6 @@ module.exports = (router) => {
 
   // Export forms.
   const exportForms = function(_export, _map, options, next) {
-    console.log("LIST FORMS");
     let includeFormFields = [];
     if (options && options.includeFormFields) {
       includeFormFields = options.includeFormFields;

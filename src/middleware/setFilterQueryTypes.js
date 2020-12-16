@@ -15,7 +15,6 @@ const moment = require('moment');
  */
 module.exports = function(router) {
     return function(req, res, next) {
-      console.log("Debug63");
       // Skip if not an Index request
       if (req.method !== 'GET' || req.submissionId) {
         return next();

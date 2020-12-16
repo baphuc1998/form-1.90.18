@@ -21,7 +21,6 @@ module.exports = function(router) {
    *   The callback function to invoke with the results.
    */
   const getSubmissionResourceAccess = function(req, submission, access, next) {
-    console.log("Debug64");
     if (!next) {
       return;
     }
@@ -108,7 +107,6 @@ module.exports = function(router) {
    *   The compiled access list.
    */
   const getSelfAccessPermissions = function(req, form, access) {
-    console.log("Debug65");
     if (!form || !access || !form.submissionAccess || !(form.submissionAccess instanceof Array)) {
       return;
     }
@@ -151,7 +149,6 @@ module.exports = function(router) {
      *   The access object for the given form/sub id.
      */
     getAccess(req, res, done) {
-      console.log("Debug66");
       const access = {};
       async.series(hook.alter('getAccess', [
         // Get the permissions for a Form and Submissions with the given ObjectId.
@@ -413,7 +410,6 @@ module.exports = function(router) {
      */
     /* eslint-disable max-statements */
     hasAccess(req, access, entity, res) {
-      console.log("Debug67");
       const method = req.method.toUpperCase();
       const user = req.user ? util.idToString(req.user._id) : null;
 
@@ -522,8 +518,6 @@ module.exports = function(router) {
       }
 
       // Return if they have access.
-      console.log("Debug670");
-      console.log(_hasAccess);
       return _hasAccess;
     }
     /* eslint-enable max-statements */
@@ -544,99 +538,93 @@ module.exports = function(router) {
   return function permissionHandler(req, res, next) {
     //Bypass permission
     return next();
-    // If permissions have already been checked.
-    if (req.permissionsChecked) {
-      return next();
-    }
-    req.permissionsChecked = true;
+    // // If permissions have already been checked.
+    // if (req.permissionsChecked) {
+    //   return next();
+    // }
+    // req.permissionsChecked = true;
 
-    // Check for whitelisted paths.
-    let skip = false;
-    if (req.method === 'GET') {
-      const whitelist = ['/health', '/current', '/logout', '/access', '/token', '/recaptcha'];
-      const url = req.url.split('?')[0];
-      skip = _.some(whitelist, function(path) {
-        if ((url === path) || (url === hook.alter('path', path, req))) {
-          return true;
-        }
+    // // Check for whitelisted paths.
+    // let skip = false;
+    // if (req.method === 'GET') {
+    //   const whitelist = ['/health', '/current', '/logout', '/access', '/token', '/recaptcha'];
+    //   const url = req.url.split('?')[0];
+    //   skip = _.some(whitelist, function(path) {
+    //     if ((url === path) || (url === hook.alter('path', path, req))) {
+    //       return true;
+    //     }
 
-        return false;
-      });
-    }
+    //     return false;
+    //   });
+    // }
 
-    // Allow the private hook of skip to be run, if it didnt already pass the whitelist.
-    if (!skip) {
-      skip = hook.alter('skip', false, req);
-    }
+    // // Allow the private hook of skip to be run, if it didnt already pass the whitelist.
+    // if (!skip) {
+    //   skip = hook.alter('skip', false, req);
+    // }
 
-    // If there is a whitelist match, then move onto the next middleware.
-    if (skip) {
-      return next();
-    }
+    // // If there is a whitelist match, then move onto the next middleware.
+    // if (skip) {
+    //   return next();
+    // }
 
-    // Determine if we are trying to access and entity of the form or submission.
-    router.formio.access.getAccess(req, res, function(err, access) {
-      console.log("Debug69");
-      if (err) {
-        if (_.isNumber(err)) {
-          return (typeof res.sendStatus === 'function') ? res.sendStatus(err) : next('Invalid Request');
-        }
+    // // Determine if we are trying to access and entity of the form or submission.
+    // router.formio.access.getAccess(req, res, function(err, access) {
+    //   if (err) {
+    //     if (_.isNumber(err)) {
+    //       return (typeof res.sendStatus === 'function') ? res.sendStatus(err) : next('Invalid Request');
+    //     }
 
-        return res.status(400).send(err.message || err);
-      }
+    //     return res.status(400).send(err.message || err);
+    //   }
 
-      // Check for permissions starting at micro -> macro level.
-      let entity = null;
-      if (req.hasOwnProperty('subId') && ((req.subId !== null) && (req.subId !== undefined))) {
-        entity = {
-          type: 'submission',
-          id: req.subId
-        };
-      }
-      else if (req.hasOwnProperty('formId') && ((req.formId !== null) && (req.formId !== undefined))) {
-        entity = {
-          type: 'form',
-          id: req.formId
-        };
-      }
-      else if (req.hasOwnProperty('roleId') && ((req.roleId !== null) && (req.roleId !== undefined))) {
-        entity = {
-          type: 'role',
-          id: req.roleId
-        };
-      }
+    //   // Check for permissions starting at micro -> macro level.
+    //   let entity = null;
+    //   if (req.hasOwnProperty('subId') && ((req.subId !== null) && (req.subId !== undefined))) {
+    //     entity = {
+    //       type: 'submission',
+    //       id: req.subId
+    //     };
+    //   }
+    //   else if (req.hasOwnProperty('formId') && ((req.formId !== null) && (req.formId !== undefined))) {
+    //     entity = {
+    //       type: 'form',
+    //       id: req.formId
+    //     };
+    //   }
+    //   else if (req.hasOwnProperty('roleId') && ((req.roleId !== null) && (req.roleId !== undefined))) {
+    //     entity = {
+    //       type: 'role',
+    //       id: req.roleId
+    //     };
+    //   }
 
-      // Allow anyone to hook and change the access entity.
-      entity = hook.alter('accessEntity', entity, req);
+    //   // Allow anyone to hook and change the access entity.
+    //   entity = hook.alter('accessEntity', entity, req);
 
-      // Check for access.
-      if (router.formio.access.hasAccess(req, access, entity, res)) {
-        console.log("Debug690");
-        return next();
-      }
-      console.log("Debug691");
+    //   // Check for access.
+    //   if (router.formio.access.hasAccess(req, access, entity, res)) {
+    //     return next();
+    //   }
 
-      // Allow anyone to hook the access check.
-      if (hook.alter('hasAccess', false, req, access, entity, res)) {
-        return next();
-      }
+    //   // Allow anyone to hook the access check.
+    //   if (hook.alter('hasAccess', false, req, access, entity, res)) {
+    //     return next();
+    //   }
 
-      // Attempt a final access check against submission index requests using the submission resource access.
-      // If this passes, it is up to the submissionResourceAccessFilter middleware to handle permissions.
-      if (_.has(req, 'submissionResourceAccessFilter') && req.submissionResourceAccessFilter) {
-        req.skipOwnerFilter = true;
-        return next();
-      }
+    //   // Attempt a final access check against submission index requests using the submission resource access.
+    //   // If this passes, it is up to the submissionResourceAccessFilter middleware to handle permissions.
+    //   if (_.has(req, 'submissionResourceAccessFilter') && req.submissionResourceAccessFilter) {
+    //     req.skipOwnerFilter = true;
+    //     return next();
+    //   }
 
-      // If someone else before this sent the status, then go to the next middleware.
-      if (req.noResponse) {
-        console.log("req.noResponse");
-        res.status(401);
-        return next();
-      }
-      console.log("Debug692");
-      console.log(res.headersSent);
-      return res.headersSent ? next() : res.sendStatus(401);
-    });
+    //   // If someone else before this sent the status, then go to the next middleware.
+    //   if (req.noResponse) {
+    //     res.status(401);
+    //     return next();
+    //   }
+    //   return res.headersSent ? next() : res.sendStatus(401);
+    // });
   };
 };

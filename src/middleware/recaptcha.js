@@ -5,7 +5,6 @@ module.exports = function(router) {
   const hook = require('../util/hook')(router.formio);
   router.get('/recaptcha',
       function(req, res) {
-        console.log("Debug63");
         hook.settings(req, (err, settings) => {
           if (!settings.recaptcha || !settings.recaptcha.secretKey) {
             return res.status(400).send('reCAPTCHA settings not set.');

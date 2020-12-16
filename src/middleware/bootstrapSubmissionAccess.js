@@ -4,7 +4,6 @@ const _ = require('lodash');
 
 module.exports = function(router) {
   return function bootstrapSubmissionAccess(req, res, next) {
-    console.log("Debug81");
     /**
      * Utility function to sanitize the current request if access was not granted and continue with processing.
      */

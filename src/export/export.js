@@ -38,7 +38,6 @@ module.exports = (router) => {
 
     // Load the form.
     router.formio.cache.loadCurrentForm(req, async (err, form) => {
-      console.log("Check Token");
       if (err) {
         return res.sendStatus(401);
       }
