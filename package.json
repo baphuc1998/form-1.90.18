@@ -33,6 +33,7 @@
     "eslint-config-formio": "^1.1.2",
     "event-chain": "^0.0.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "fast-json-patch": "^2.2.1",
     "formio-workers": "^1.14.8",
     "formiojs": "^4.12.1-rc.17",

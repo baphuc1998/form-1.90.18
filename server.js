@@ -4,6 +4,7 @@
  * This is the Form.io application server.
  */
 const express = require('express');
+var session = require('express-session');
 const nunjucks = require('nunjucks');
 const fs = require('fs-extra');
 const path = require('path');
@@ -13,6 +14,9 @@ const Q = require('q');
 const cors = require('cors');
 const test = process.env.TEST_SUITE;
 const noInstall = process.env.NO_INSTALL;
+
+
+var Keycloak = require('keycloak-connect');
 
 module.exports = function(options) {
   options = options || {};
@@ -68,6 +72,16 @@ module.exports = function(options) {
   }
   // Mount the client application.
   app.use('/', express.static(path.join(__dirname, '/client/dist')));
+
+  var memoryStore = new session.MemoryStore();
+  var keycloak = new Keycloak({
+    store: memoryStore
+  });
+
+  app.use(keycloak.middleware({
+    logout: '/logout',
+    admin: '/'
+  }));
 
   // Load the form.io server.
   const server = options.server || require('./index')(config);

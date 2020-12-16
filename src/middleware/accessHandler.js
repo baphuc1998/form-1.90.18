@@ -14,7 +14,6 @@ module.exports = function(router) {
   const _ = require('lodash');
 
   return async function accessHandler(req, res, next) {
-    res.status(200).json({roles: "accessInfo.roles", forms: "accessInfo.forms"});
     // Load all the roles.
     const roles = {};
 

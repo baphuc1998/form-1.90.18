@@ -122,7 +122,9 @@ module.exports = function(config) {
       const corsRoute = cors(router.formio.hook.alter('cors'));
       router.use(function(req, res, next) {
         if (req.url === '/') {
-          return next();
+          const currentDate = new Date();
+          const timestamp = currentDate.getTime();
+          res.status(200).send('Server is working - '+timestamp);
         }
 
         if (res.headersSent) {
@@ -147,7 +149,7 @@ module.exports = function(config) {
       //   router.use(router.formio.middleware.tokenHandler);
       // }
 
-      // // The get token handler
+      // The get token handler
       // if (!router.formio.hook.invoke('init', 'getTempToken', router.formio)) {
       //   router.get('/token', router.formio.auth.tempToken);
       // }
@@ -157,7 +159,7 @@ module.exports = function(config) {
       //   router.get('/logout', router.formio.auth.logout);
       // }
 
-      // // The current user handler.
+      // The current user handler.
       // if (!router.formio.hook.invoke('init', 'current', router.formio)) {
       //   router.get('/current', router.formio.hook.alter('currentUser', [router.formio.auth.currentUser]));
       // }
@@ -166,7 +168,7 @@ module.exports = function(config) {
       if (!router.formio.hook.invoke('init', 'access', router.formio)) {
         router.get('/access', router.formio.middleware.accessHandler);
       }
-      router.get('/access', router.formio.middleware.accessHandler);
+      // router.get('/access', router.formio.middleware.accessHandler);
 
       // // Authorize all urls based on roles and permissions.
       // if (!router.formio.hook.invoke('init', 'perms', router.formio)) {
@@ -234,8 +236,6 @@ module.exports = function(config) {
           PermissionSchema: require('./src/models/PermissionSchema')(router.formio),
           AccessSchema: require('./src/models/AccessSchema')(router.formio)
         };
-
-        console.log("Index.js");
 
         // Get the models for our project.
         const models = require('./src/models/models')(router);

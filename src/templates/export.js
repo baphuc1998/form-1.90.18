@@ -70,7 +70,6 @@ module.exports = (router) => {
 
   // Assign form.
   const assignForm = function(_map, entity) {
-    console.log("assignForm");
     if (!entity) {
       return;
     }
@@ -83,7 +82,6 @@ module.exports = (router) => {
 
   // Export actions.
   const exportActions = function(_export, _map, options, next) {
-    console.log("LSIT FORMS 01");
     formio.actions.model.find({
         form: {$in: _.keys(_map.forms)},
         deleted: {$eq: null}

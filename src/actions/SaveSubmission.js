@@ -44,7 +44,6 @@ module.exports = function(router) {
     }
 
     static settingsForm(req, res, next) {
-      console.log("FORM 07");
       next(null, [
         {
           type: 'resourcefields',

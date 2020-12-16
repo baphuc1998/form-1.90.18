@@ -14,7 +14,6 @@ const debug = {
 };
 
 module.exports = function(router) {
-  console.log("Cache Form 01");
   const hook = require('../util/hook')(router.formio);
   const util = router.formio.util;
 
@@ -116,7 +115,6 @@ module.exports = function(router) {
      * @param cb
      */
     loadForms(req, ids, cb) {
-      console.log("Cache Form 03");
       if (!ids || !ids.length) {
         // Shortcut if no ids are provided.
         return cb(null, []);
@@ -141,7 +139,6 @@ module.exports = function(router) {
     },
 
     loadFormRevisions(req, revs, cb) {
-      console.log("Cache Form 04");
       if (!revs || !revs.length || !router.formio.resources.formrevision) {
         debug.loadSubForms(`Form revisions not used.`);
         return cb();

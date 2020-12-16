@@ -31,8 +31,8 @@ module.exports = function(router) {
   return function keycloakHandle(req, res, next) {
     /* eslint-disable max-statements */
     // If someone else provided then skip.
-    const token = req.headers.authorization
-    console.log("Authorization:",req.headers);
+    // const token = req.headers.authorization
+    // console.log("Authorization:",token);
     return next();
   };
 };
